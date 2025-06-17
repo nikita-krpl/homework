@@ -1,7 +1,7 @@
-import { createContext, useContext, ReactNode } from 'react';
+import { createContext, useContext, type ReactNode } from 'react';
 import { v4 as uuidv4 } from 'uuid';
-import { Note } from '../types/types';
-import useLocalStorage from '../hooks/useLocalStorage';
+import type { Note } from '../types/types';
+import { useLocalStorage } from '../hooks/useLocalStorage';
 
 type NotesContextType = {
   notes: Note[];
@@ -29,14 +29,14 @@ export const NotesProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const editNote = (id: string, title: string, content: string) => {
-    setNotes(notes.map(note => 
-      note.id === id 
-        ? { 
-            ...note, 
-            title, 
-            content, 
-            updatedAt: new Date() 
-          } 
+    setNotes(notes.map(note =>
+      note.id === id
+        ? {
+          ...note,
+          title,
+          content,
+          updatedAt: new Date()
+        }
         : note
     ));
   };
@@ -47,25 +47,25 @@ export const NotesProvider = ({ children }: { children: ReactNode }) => {
 
   const searchNotes = (query: string) => {
     return notes.filter(
-      note => 
-        note.title.toLowerCase().includes(query.toLowerCase()) || 
+      note =>
+        note.title.toLowerCase().includes(query.toLowerCase()) ||
         note.content.toLowerCase().includes(query.toLowerCase())
     );
   };
 
   const filterNotesByDate = (date: Date) => {
-    return notes.filter(note => 
+    return notes.filter(note =>
       new Date(note.createdAt).toDateString() === date.toDateString()
     );
   };
 
   return (
-    <NotesContext.Provider 
-      value={{ 
-        notes, 
-        addNote, 
-        editNote, 
-        deleteNote, 
+    <NotesContext.Provider
+      value={{
+        notes,
+        addNote,
+        editNote,
+        deleteNote,
         searchNotes,
         filterNotesByDate
       }}
