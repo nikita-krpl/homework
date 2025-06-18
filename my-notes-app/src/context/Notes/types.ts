@@ -3,9 +3,12 @@ export type Note = {
   title: string;
   content: string;
   createdAt: Date;
+  userId: string; // Обязательное поле
   updatedAt?: Date;
-  userId: string;
+  isFavorite?: boolean;
+  tags?: string[];
 };
+
 
 export type User = {
   login: string;

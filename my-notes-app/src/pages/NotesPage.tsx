@@ -1,76 +1,77 @@
-// import { useState } from 'react';
-// import { useAuth } from '../context/AuthContext';
-// import { useNotes } from '../context/NotesContext';
-// import NoteList from '../components/Notes/NoteList';
-// import NoteForm from '../components/Notes/NoteForm';
-// import SearchNotes from '../components/Notes/SearchNotes';
-// import Button from '../components/UI/Button';
+import { useState } from 'react';
+import { useAuth } from '../hooks/useAuth';
+import { useNotes } from '../context/Notes/useNotes';
+import  NoteForm from '../context/Notes/NoteForm'
+import  NoteList from '../context/Notes/NoteList'
+import { Button } from '../components/UI/Button'; // Именованный импорт
+import styles from './NotesPage.module.css';
+import type { Note } from '../context/Notes/types';
 
-// const NotesPage = () => {
-//   const { logout } = useAuth();
-//   const { notes, addNote, editNote, deleteNote, searchNotes, filterNotesByDate } = useNotes();
-//   const [currentNote, setCurrentNote] = useState<Note | null>(null);
-//   const [displayedNotes, setDisplayedNotes] = useState<Note[]>(notes);
-//   const [showForm, setShowForm] = useState(false);
+export const NotesPage = () => {
+  const { logout } = useAuth();
+  const { notes, addNote, editNote, deleteNote } = useNotes();
+  const [editingNote, setEditingNote] = useState<Note | null>(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
-//   const handleSearch = (query: string) => {
-//     setDisplayedNotes(searchNotes(query));
-//   };
+  // Обработчики действий
+  const handleSubmit = (title: string, content: string) => {
+    if (editingNote) {
+      editNote(editingNote.id, title, content);
+    } else {
+      addNote(title, content);
+    }
+    setEditingNote(null);
+  };
 
-//   const handleFilter = (date: Date) => {
-//     setDisplayedNotes(filterNotesByDate(date));
-//   };
+  const handleEdit = (note: Note) => {
+    setEditingNote(note);
+  };
 
-//   const handleEdit = (note: Note) => {
-//     setCurrentNote(note);
-//     setShowForm(true);
-//   };
+  // Фильтрация заметок
+  const filteredNotes = notes.filter(note => 
+    note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+    note.content.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
-//   const handleSubmit = (title: string, content: string) => {
-//     if (currentNote) {
-//       editNote(currentNote.id, title, content);
-//     } else {
-//       addNote(title, content);
-//     }
-//     setCurrentNote(null);
-//     setShowForm(false);
-//   };
+  return (
+    <div className={styles.container}>
+      <header className={styles.header}>
+        <h1>Мои заметки</h1>
+        <div className={styles.controls}>
+          <input
+  type="text"
+  value={searchQuery}
+  onChange={(e) => setSearchQuery(e.target.value)}
+  placeholder="Поиск..."
+  className={styles.searchInput}
+/>
 
-//   useEffect(() => {
-//     setDisplayedNotes(notes);
-//   }, [notes]);
+          <Button variant="secondary" onClick={logout}>
+            Выйти
+          </Button>
+        </div>
+      </header>
 
-//   return (
-//     <div className="notes-page">
-//       <header>
-//         <h1>Мои заметки</h1>
-//         <Button onClick={logout}>Выйти</Button>
-//       </header>
+      <NoteForm
+        initialNote={editingNote}
+        onSubmit={handleSubmit}
+        onCancel={() => setEditingNote(null)}
+      />
 
-//       <SearchNotes onSearch={handleSearch} onFilter={handleFilter} />
-
-//       {showForm ? (
-//         <NoteForm 
-//           initialNote={currentNote} 
-//           onSubmit={handleSubmit} 
-//           onCancel={() => {
-//             setCurrentNote(null);
-//             setShowForm(false);
-//           }}
-//         />
-//       ) : (
-//         <Button onClick={() => setShowForm(true)}>
-//           Создать новую заметку
-//         </Button>
-//       )}
-
-//       <NoteList 
-//         notes={displayedNotes} 
-//         onEdit={handleEdit} 
-//         onDelete={deleteNote} 
-//       />
-//     </div>
-//   );
-// };
-
-// export default NotesPage;
+      {filteredNotes.length > 0 ? (
+        // NotesPage.tsx
+<NoteList 
+  notes={filteredNotes}
+  onEdit={handleEdit}
+  onDelete={deleteNote}
+/>
+      ) : (
+        <div className={styles.emptyState}>
+          {notes.length === 0 
+            ? 'У вас пока нет заметок. Создайте первую!' 
+            : 'Заметки по вашему запросу не найдены'}
+        </div>
+      )}
+    </div>
+  );
+};

@@ -1,12 +1,12 @@
-import { Note } from '../../types/types';
+import type { Note } from './types';
 import { format } from 'date-fns';
-import Button from '../UI/Button';
+import { Button } from '../../components/UI/Button';
 
-type NoteItemProps = {
+interface NoteItemProps {
   note: Note;
   onEdit: (note: Note) => void;
   onDelete: (id: string) => void;
-};
+}
 
 const NoteItem = ({ note, onEdit, onDelete }: NoteItemProps) => {
   return (
@@ -20,7 +20,9 @@ const NoteItem = ({ note, onEdit, onDelete }: NoteItemProps) => {
         )}
       </div>
       <div className="note-actions">
-        <Button onClick={() => onEdit(note)}>Редактировать</Button>
+        <Button onClick={() => onEdit(note)}>  {/* Передаём весь объект note */}
+  Редактировать
+</Button>
         <Button variant="danger" onClick={() => onDelete(note.id)}>
           Удалить
         </Button>

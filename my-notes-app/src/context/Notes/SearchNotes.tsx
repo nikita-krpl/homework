@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import Button from '../UI/Button';
+import { Button } from '../../components/UI/Button';
 
 type SearchNotesProps = {
   onSearch: (query: string) => void;

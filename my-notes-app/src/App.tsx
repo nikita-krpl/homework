@@ -1,13 +1,16 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import { NotesProvider } from './context/NotesContext';
+import { AuthProvider } from './context/AuthProvider';
+import { NotesProvider } from './context/Notes/NotesProvider';
 import LoginPage from './pages/LoginPage';
-// import NotesPage from './pages/NotesPage';
+import { NotesPage } from './pages/NotesPage';
 
-// const ProtectedRoute = ({ children }: { children: JSX.Element }) => {
-//   const { isAuthenticated } = useAuth();
-//   return isAuthenticated ? children : <Navigate to="/" replace />;
-// };
+import type { ReactNode } from 'react'; // Добавляем импорт для типа children
+import { useAuth } from '../src/hooks/useAuth'; // Правильный путь к хуку
+
+const ProtectedRoute = ({ children }: { children: ReactNode }) => {
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? children : <Navigate to="/" replace />;
+};
 
 function App() {
   return (
@@ -15,14 +18,14 @@ function App() {
       <NotesProvider>
         <Routes>
           <Route path="/" element={<LoginPage />} />
-          {/* <Route
+          { <Route
             path="/notes"
             element={
               <ProtectedRoute>
                 <NotesPage />
               </ProtectedRoute>
             }
-          /> */}
+          /> }
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </NotesProvider>
