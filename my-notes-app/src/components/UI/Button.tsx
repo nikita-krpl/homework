@@ -1,31 +1,27 @@
 import React from 'react';
 import styles from './Button.module.css';
 
-type ButtonProps = {
-  children: React.ReactNode;
-  type?: 'button' | 'submit' | 'reset';
-  onClick?: () => void;
-  variant?: 'primary' | 'secondary' | 'danger'; // Добавлен 'danger'
-  disabled?: boolean;
-  className?: string;
-};
+type ButtonVariant = 'primary' | 'secondary' | 'danger' | 'outline';
+type ButtonSize = 'small' | 'medium' | 'large'; // Добавляем тип для размеров
 
-export const Button = ({
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: ButtonVariant;
+  size?: ButtonSize; // Добавляем пропс size
+}
+
+export const Button: React.FC<ButtonProps> = ({
   children,
-  type = 'button',
-  onClick,
   variant = 'primary',
-  disabled = false,
-}: ButtonProps) => {
+  size = 'medium', // Значение по умолчанию
+  className = '',
+  ...props
+}) => {
   return (
     <button
-      type={type}
-      className={`${styles.button} ${styles[variant]}`}
-      onClick={onClick}
-      disabled={disabled}
+      className={`${styles.button} ${styles[variant]} ${styles[size]} ${className}`}
+      {...props}
     >
       {children}
     </button>
   );
 };
-

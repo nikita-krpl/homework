@@ -1,11 +1,10 @@
 /* Основные стили формы */
 .form {
-  background-color: #ffffff;
+  background-color: #6E918E;
   border-radius: 12px;
   padding: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  margin-bottom: 2.5rem;
-  transition: all 0.3s ease;
+  transition: all 0.8s ease;
 }
 
 .form:hover {
@@ -27,7 +26,10 @@
 
 .input {
   width: 100%;
-  padding: 0.75rem 1rem;
+  min-height: 3rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  margin-bottom: 0.5rem;
   border: 1px solid #e2e8f0;
   border-radius: 8px;
   font-size: 1rem;
@@ -36,14 +38,25 @@
 
 .input:focus {
   outline: none;
-  border-color: #4299e1;
+  border-color: #71777c;
   box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
 }
 
 .textarea {
-  min-height: 150px;
+  width: 100%;
+  min-height: 100px;
+  margin-bottom: 0.5rem;
   resize: vertical;
   line-height: 1.5;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 1rem;
+  outline: none;
+
+}
+.textarea:focus {
+  border-color: #71777c;
+  box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.2);
 }
 
 /* Стили для кнопок */
@@ -51,7 +64,7 @@
   display: flex;
   justify-content: flex-end;
   gap: 1rem;
-  margin-top: 1rem;
+  margin-top: rem;
 }
 
 .button {
@@ -104,11 +117,11 @@
   .form {
     padding: 1.5rem;
   }
-  
+
   .buttonGroup {
     flex-direction: column;
   }
-  
+
   .button {
     width: 100%;
   }
@@ -116,8 +129,15 @@
 
 /* Анимации */
 @keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .form {

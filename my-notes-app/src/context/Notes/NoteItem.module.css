@@ -1,0 +1,40 @@
+.noteCard {
+  background-color: #4E6974; /* Основной фон заметки */
+  border-radius: 8px;
+  padding: 16px;
+  border-left: 4px solid #579192; /* Акцентный цвет слева */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  transition: all 0.8s ease;
+  list-style: none
+}
+
+.noteCard:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.noteHeader {
+  color: #96BAC1; /* Цвет заголовка */
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 1.2rem;
+}
+
+.noteContent {
+  color: #e0e0e0; /* Цвет текста */
+  margin-bottom: 16px;
+  line-height: 1.5;
+}
+
+.noteMeta {
+  font-size: 0.85rem;
+  color: #96BAC1; /* Цвет мета-информации */
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 12px;
+}
+
+.noteActions {
+  display: flex;
+  gap: 8px;
+}

@@ -2,9 +2,12 @@
     max-width: 400px;
     margin: 0 auto;
     padding: 20px;
-    border: 1px solid #ddd;
+    border: none;
     border-radius: 8px;
-    background-color: #f9f9f9;
+    background-color: #6E918E;
+}
+.form:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
 
 .input {
@@ -14,6 +17,10 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     box-sizing: border-box;
+    border: none;
+}
+.input:focus {
+ outline: none;
 }
 
 .error {

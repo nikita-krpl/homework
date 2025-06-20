@@ -29,6 +29,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   justify-content: center;
+  background-color: #474a51;
 }
 
 h1 {
@@ -46,23 +47,24 @@ button {
   background-color: #1a1a1a;
   cursor: pointer;
   transition: border-color 0.25s;
+  
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #000000;
+  box-shadow: 2px 2px #000000;
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 2px auto -webkit-focus-ring-color;
 }
 
+ul, ol {
+  list-style-type: none;
+  padding-left: 0; /* Также убираем стандартный отступ */
+  margin: 0; /* Убираем внешние отступы */
+}
 @media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
+  
   button {
     background-color: #f9f9f9;
   }

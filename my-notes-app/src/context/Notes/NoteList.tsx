@@ -1,12 +1,12 @@
 // NoteList.tsx
 import { useState } from 'react';
 import type { NoteListProps } from './NoteList.types';
-import NoteItem from '../Notes/NoteItem';
+import {NoteItem} from '../Notes/NoteItem';
 import styles from './NoteList.module.css';
 
 
 const NoteList = ({ notes, onEdit, onDelete }: NoteListProps) => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, ] = useState('');
 
   const filteredNotes = notes.filter(note => 
     note.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -15,16 +15,7 @@ const NoteList = ({ notes, onEdit, onDelete }: NoteListProps) => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.searchContainer}>
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Поиск по заметкам..."
-          className={styles.searchInput}
-          aria-label="Поиск заметок"
-        />
-      </div>
+      
 
       {filteredNotes.length === 0 ? (
         <div className={styles.emptyState}>
